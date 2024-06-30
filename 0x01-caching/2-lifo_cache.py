@@ -10,13 +10,20 @@ class LIFOCache(BaseCaching):
         super().__init__()
 
     def put(self, key, item):
-        """put in the cache"""
+        """
+        put item in cash storage with a key
+        """
+
         if key and item:
             self.cache_data[key] = item
             if len(self.cache_data) > BaseCaching.MAX_ITEMS:
-                last_key = list(reversed(self.cache_data))[1]
-                del self.cache_data[last_key]
-                print(f'DISCARD: {last_key}')
+                try:
+                    beforelastkey = list(self.cache_data.keys())[-2]
+                except IndexError:
+                    beforelastkey = None
+                if beforelastkey is not None:
+                    del self.cache_data[beforelastkey]
+                print(f'DISCARD: {beforelastkey}')
 
     def get(self, key):
         """get the item from cache by key"""
