@@ -28,7 +28,8 @@ class LFUCache(BaseCaching):
                 if len(self.cache_data) >= BaseCaching.MAX_ITEMS:
                     min_usage = min(self.usage_history.values())
                     least_used_keys = [
-                        k for k, v in self.usage_history.items() if v == min_usage
+                        k for k, v in self.usage_history.items()
+                        if v == min_usage
                     ]
 
                     # Evict the first inserted least frequently used key
